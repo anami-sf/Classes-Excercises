@@ -85,3 +85,78 @@
 //       return this[this.length - 1];
 //     }
 //   }
+
+
+//JS Classes Lab
+
+
+class Person {
+    constructor(firstName, lastName){
+        this.firstName = firstName
+        this.lastName = lastName
+    }
+    
+    sayHello() {
+        console.log('Hello')
+    }
+}
+
+let anami = new Person('Ana', 'Milan')
+console.log(anami)
+anami.sayHello()
+
+class Employee extends Person {
+    constructor (firstName, lastName, company, wage, active) {
+        super(firstName, lastName)
+        this.company = company
+        this.wage = wage
+        this.active = true
+    }
+
+    receiveRaise(){
+        this.wage = this.wage*1.1
+    }
+
+    terminate() {
+        this.active = false
+    }
+}
+
+let kate = new Employee('kate', 'gibbons', 'luma', 80, true)
+console.log(kate)
+kate.receiveRaise()
+console.log(kate.wage)
+
+class Manager extends Employee {
+    constructor(firstName, lastName, company, wage, active, department) {
+        super(firstName, lastName, company, wage, active)
+        this.department = department
+    }
+
+    giveRaise(employee) {
+        employee.receivesRaise()
+    }
+}
+
+const John = new Manager('John', 'Smith', 'Luma', 100, true, 'CS')
+console.log(John)
+
+class Worker extends Employee {
+    constructor(firstName, lastName, company, wage, active, manager){
+        super(firstName, lastName, company, wage, active)
+        this.manager = manager
+    }
+
+    receivePromotion(){
+        const worker1 = new Manager(this.firstName, this.lastName, this.company, this.wage, this.active, 'CS')
+        worker1.receiveRaise()
+        //delete worker
+        return worker1
+        
+    }
+}
+
+const Lisa = new Worker('Lisa', 'Underwood', 'Luma', 80, true, 'Matt' )
+console.log(Lisa)
+console.log(Lisa.receivePromotion())
+
